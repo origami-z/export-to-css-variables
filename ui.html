@@ -24,7 +24,7 @@
     padding-top: 0;
   }
 
-  .plugin-container > div {
+  .plugin-container>div {
     width: 85vw;
   }
 
@@ -36,7 +36,7 @@
     display: block;
   }
 
-  .textarea-container > button {
+  .textarea-container>button {
     margin: 5vh 0;
   }
 
@@ -50,30 +50,24 @@
     font-family: "Inter";
     font-style: normal;
     font-weight: 400;
-    src: url("https://rsms.me/inter/font-files/Inter-Regular.woff2?v=3.7")
-        format("woff2"),
-      url("https://rsms.me/inter/font-files/Inter-Regular.woff?v=3.7")
-        format("woff");
+    src: url("https://rsms.me/inter/font-files/Inter-Regular.woff2?v=3.7") format("woff2"),
+      url("https://rsms.me/inter/font-files/Inter-Regular.woff?v=3.7") format("woff");
   }
 
   @font-face {
     font-family: "Inter";
     font-style: normal;
     font-weight: 500;
-    src: url("https://rsms.me/inter/font-files/Inter-Medium.woff2?v=3.7")
-        format("woff2"),
-      url("https://rsms.me/inter/font-files/Inter-Medium.woff2?v=3.7")
-        format("woff");
+    src: url("https://rsms.me/inter/font-files/Inter-Medium.woff2?v=3.7") format("woff2"),
+      url("https://rsms.me/inter/font-files/Inter-Medium.woff2?v=3.7") format("woff");
   }
 
   @font-face {
     font-family: "Inter";
     font-style: normal;
     font-weight: 600;
-    src: url("https://rsms.me/inter/font-files/Inter-SemiBold.woff2?v=3.7")
-        format("woff2"),
-      url("https://rsms.me/inter/font-files/Inter-SemiBold.woff2?v=3.7")
-        format("woff");
+    src: url("https://rsms.me/inter/font-files/Inter-SemiBold.woff2?v=3.7") format("woff2"),
+      url("https://rsms.me/inter/font-files/Inter-SemiBold.woff2?v=3.7") format("woff");
   }
 
   .label {
@@ -931,16 +925,16 @@
     display: none;
   }
 
-  .switch__toggle:checked + label:before {
+  .switch__toggle:checked+label:before {
     background-color: #000000;
   }
 
-  .switch__toggle:checked + label:after {
+  .switch__toggle:checked+label:after {
     -webkit-transform: translateX(14px);
     transform: translateX(14px);
   }
 
-  .switch__toggle:disabled + label {
+  .switch__toggle:disabled+label {
     opacity: 0.3;
   }
 
@@ -1013,7 +1007,7 @@
     display: none;
   }
 
-  .checkbox__box:checked + label:before {
+  .checkbox__box:checked+label:before {
     border: 1px solid #18a0fb;
     background-color: #18a0fb;
     background-image: url("data:image/svg+xml;utf8,%3Csvg%20fill%3D%22none%22%20height%3D%227%22%20viewBox%3D%220%200%208%207%22%20width%3D%228%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20clip-rule%3D%22evenodd%22%20d%3D%22m1.17647%201.88236%201.88235%201.88236%203.76471-3.76472%201.17647%201.17648-4.94118%204.9412-3.05882-3.05884z%22%20fill%3D%22%23fff%22%20fill-rule%3D%22evenodd%22%2F%3E%3C%2Fsvg%3E");
@@ -1021,11 +1015,11 @@
     background-position: 1px 2px;
   }
 
-  .checkbox__box:disabled + label {
+  .checkbox__box:disabled+label {
     opacity: 0.3;
   }
 
-  .checkbox__box:checked:disabled + label:before {
+  .checkbox__box:checked:disabled+label:before {
     border: 1px solid rgba(0, 0, 0, 0.8);
     background-color: rgba(0, 0, 0, 0.8);
   }
@@ -1132,6 +1126,7 @@
       -webkit-transform: rotate(0deg);
       transform: rotate(0deg);
     }
+
     to {
       -webkit-transform: rotate(360deg);
       transform: rotate(360deg);
@@ -1143,6 +1138,7 @@
       -webkit-transform: rotate(0deg);
       transform: rotate(0deg);
     }
+
     to {
       -webkit-transform: rotate(360deg);
       transform: rotate(360deg);
@@ -1678,6 +1674,7 @@
   .icon--warning {
     background-image: url('data:image/svg+xml,%3Csvg fill="none" height="128" viewBox="0 0 32 128" width="32" xmlns="http://www.w3.org/2000/svg"%3E%3Cg clip-rule="evenodd" fill-rule="evenodd"%3E%3Cpath d="m16 38 10 18h-20zm-1 11v-4h2v4zm0 2v2h2v-2z" fill="%23000" fill-opacity=".3"/%3E%3Cpath d="m16 6 10 18h-20zm-1 11v-4h2v4zm0 2v2h2v-2z" fill="%23000" fill-opacity=".8"/%3E%3Cpath d="m16 70 10 18h-20zm-1 11v-4h2v4zm0 2v2h2v-2z" fill="%2318a0fb"/%3E%3Cpath d="m16 102 10 18h-20zm-1 11v-4h2v4zm0 2v2h2v-2z" fill="%23fff"/%3E%3C/g%3E%3C/svg%3E');
   }
+
   /*# sourceMappingURL=figma-plugin-ds.min.css.map */
 </style>
 
@@ -1708,9 +1705,7 @@
       </div>
     </div>
     <div class="js-use-rem-selection-container hide-by-default">
-      <label class="label" for="selected-base"
-        >Select a size to act as base size</label
-      >
+      <label class="label" for="selected-base">Select a size to act as base size</label>
       <select id="selected-base" class="select-menu">
         <option value="none" selected="selected">NONE</option>
       </select>
@@ -1718,6 +1713,11 @@
     <div class="checkbox">
       <input class="checkbox__box" type="checkbox" id="use-effects" checked />
       <label class="checkbox__label" for="use-effects">Effects</label>
+    </div>
+    <label class="label" for="color-style">Selection</label>
+    <div class="checkbox">
+      <input class="checkbox__box" type="checkbox" id="selected-only" checked />
+      <label class="checkbox__label" for="selected-only">selected only</label>
     </div>
     <button id="generate" class="button button--primary">Generate</button>
     <button id="cancel" class="button button--secondary">Cancel</button>
@@ -1729,11 +1729,7 @@
     <h2 class="type type--neg-large-bold">
       Result:
     </h2>
-    <textarea
-      id="export"
-      class="textarea shadow-floating-window border-radius-med"
-      readonly
-    ></textarea>
+    <textarea id="export" class="textarea shadow-floating-window border-radius-med" readonly></textarea>
   </div>
 </div>
 
@@ -1875,18 +1871,18 @@
             o = document.createElement("span");
           if (
             ((t.className = s + "__list-item"),
-            (n.className = s + "__list-item-icon"),
-            (o.className = s + "__list-item-text"),
-            t.setAttribute("data-value", e.value),
-            (o.innerHTML += e.text),
-            t.appendChild(n),
-            t.appendChild(o),
-            c.appendChild(t),
-            "positionToSelection" == i.position &&
+              (n.className = s + "__list-item-icon"),
+              (o.className = s + "__list-item-text"),
+              t.setAttribute("data-value", e.value),
+              (o.innerHTML += e.text),
+              t.appendChild(n),
+              t.appendChild(o),
+              c.appendChild(t),
+              "positionToSelection" == i.position &&
               (t.setAttribute("position", d), l(t)),
-            e.index == r &&
+              e.index == r &&
               (t.classList.add(s + "__list-item--active"),
-              "positionToSelection" == i.position))
+                "positionToSelection" == i.position))
           ) {
             let e = -Math.abs(parseInt(t.getAttribute("position")));
             c.style.top = e + "px";
@@ -1955,9 +1951,9 @@
               u = d.querySelector("." + s + "__button-label");
             if (
               ((u.textContent = t.textContent),
-              d.classList.toggle(s + "__button--active"),
-              e.classList.toggle(s + "__list--active"),
-              "positionToSelection" == i.position)
+                d.classList.toggle(s + "__button--active"),
+                e.classList.toggle(s + "__list--active"),
+                "positionToSelection" == i.position)
             ) {
               let e = -Math.abs(parseInt(t.getAttribute("position")));
               t.parentNode.style.top = e + "px";
@@ -1977,7 +1973,7 @@
               let t = n.contains(e.target);
               t ||
                 (l.classList.remove(s + "__list--active"),
-                o.classList.remove(s + "__button--active"));
+                  o.classList.remove(s + "__button--active"));
             }
           });
         };
@@ -2063,9 +2059,8 @@
     if (data.colors.length > 0) {
       textArea.value += "/* Color styles */\n";
       data.colors.forEach((color) => {
-        textArea.value += `--${sanitizeHTML(color.name)}: ${
-          color.ColorStyle
-        };\n`;
+        textArea.value += `--${sanitizeHTML(color.name)}: ${color.ColorStyle
+          };\n`;
       });
     }
     if (data.sizes.length > 0) {
@@ -2095,17 +2090,14 @@
       textArea.value += "/* Effect styles */\n";
       data.effects.forEach((effect) => {
         if (effect.blur === ``) {
-          textArea.value += `--${sanitizeHTML(effect.name)}: ${
-            effect.shadows
-          };\n`;
+          textArea.value += `--${sanitizeHTML(effect.name)}: ${effect.shadows
+            };\n`;
         } else {
           // blur exists, split effect into two
-          textArea.value += `--${sanitizeHTML(effect.name)}-shadows: ${
-            effect.shadows
-          };\n`;
-          textArea.value += `--${sanitizeHTML(effect.name)}-blur: ${
-            effect.blur
-          };\n`;
+          textArea.value += `--${sanitizeHTML(effect.name)}-shadows: ${effect.shadows
+            };\n`;
+          textArea.value += `--${sanitizeHTML(effect.name)}-blur: ${effect.blur
+            };\n`;
         }
       });
     }
@@ -2161,6 +2153,7 @@
       useRem: document.getElementById("use-rem").checked,
       selectedBase: document.getElementById("selected-base").value,
       useEffect: document.getElementById("use-effects").checked,
+      selectedOnly: document.getElementById("selected-only").checked,
     };
 
     parent.postMessage(

@@ -61,13 +61,18 @@ function Generate(options) {
     return;
   }
 
+  console.log("All selctions", figma.currentPage.selection)
+
+  const allSelectedFillStyleIds = new Set(figma.currentPage.selection.filter(s => (s as DefaultShapeMixin).fillStyleId).map(s => (s as DefaultShapeMixin).fillStyleId));
+
   if (options.useColor) {
     const paintStyles = figma.getLocalPaintStyles().filter((paintStyle) => {
       let color = paintStyle.paints[0] as SolidPaint;
       return color.type === "SOLID";
     });
 
-    const colors = paintStyles.map((paintStyle) => {
+
+    const colors = paintStyles.filter(style => options.selectedOnly ? allSelectedFillStyleIds.has(style.id) : true).map((paintStyle) => {
       let color = paintStyle.paints[0] as SolidPaint;
 
       const rgb = {
@@ -197,7 +202,7 @@ function FixNaming(name: string) {
   return CamelCaseToKebabCase(
     name
       .trim()
-      .replace("/", "--") // Figma uses / to separate different substyles, change this to BEM modifier
+      .replace("/", "-")
       .replace(" ", "-") // Remove any spaces
   ).toLowerCase();
 }

@@ -53,12 +53,14 @@ function Generate(options) {
         figma.notify("⚠ Please select a style to generate.");
         return;
     }
+    console.log("All selctions", figma.currentPage.selection);
+    const allSelectedFillStyleIds = new Set(figma.currentPage.selection.filter(s => s.fillStyleId).map(s => s.fillStyleId));
     if (options.useColor) {
         const paintStyles = figma.getLocalPaintStyles().filter((paintStyle) => {
             let color = paintStyle.paints[0];
             return color.type === "SOLID";
         });
-        const colors = paintStyles.map((paintStyle) => {
+        const colors = paintStyles.filter(style => options.selectedOnly ? allSelectedFillStyleIds.has(style.id) : true).map((paintStyle) => {
             let color = paintStyle.paints[0];
             const rgb = {
                 red: BeautifyColor(color.color.r),
@@ -104,7 +106,7 @@ function Generate(options) {
                 const remSize = textStyle.size / baseSize.size;
                 return {
                     name: FixNaming(textStyle.name),
-                    size: +remSize.toFixed(2),
+                    size: +remSize.toFixed(2), // rounds down to two decimal points
                 };
             });
             data.remBaseSize = baseSize;
@@ -152,7 +154,7 @@ function GenerateShadowStyle({ type, color, offset, radius }) {
     const alpha = Math.round(color.a * 100) / 100; // removes trailing numbers and beautifies the alpha (example: 0.05999943 becomes 0.06)
     const rgba = `rgba(${BeautifyColor(color.r)}, ${BeautifyColor(color.g)}, ${BeautifyColor(color.b)}, ${alpha})`;
     // If the effect is set as INNER_SHADOW, the shadow should be set to inset (this is how Figma shows it in the code-tab)
-    return `${type === "INNER_SHADOW" ? "inset" : ""} ${radius}px ${offset.x}px ${offset.y}px ${rgba}`;
+    return `${type === "INNER_SHADOW" ? "inset" : ""} ${offset.x}px ${offset.y}px ${radius}px ${rgba}`;
 }
 // Reason for this to be a backend function is that the UI doesn't have access to the notify function
 function CopyToClipboard() {
@@ -163,7 +165,7 @@ function CopyToClipboard() {
 function FixNaming(name) {
     return CamelCaseToKebabCase(name
         .trim()
-        .replace("/", "--") // Figma uses / to separate different substyles, change this to BEM modifier
+        .replace("/", "-")
         .replace(" ", "-") // Remove any spaces
     ).toLowerCase();
 }
