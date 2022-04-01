@@ -1,5 +1,5 @@
 {
-  "name": "Export styles to CSS variables Test",
+  "name": "Export styles to CSS variables",
   "api": "1.0.0",
   "main": "code.js",
   "ui": "ui.html",
