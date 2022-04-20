@@ -1686,10 +1686,11 @@
     <label class="label" for="color-style">Color system</label>
     <select name="" id="color-style" class="select-menu">
       <option value="RGBA">RGBA</option>
-      <option value="Hex" selected="selected">Hex</option>
+      <option value="RGB" selected="selected">RGB without opacity</option>
+      <option value="Hex">Hex</option>
       <option value="HSLA">HSLA</option>
     </select>
-    <label class="label" for="color-style">Styles to export</label>
+    <label class="label">Styles to export</label>
     <div class="checkbox">
       <input class="checkbox__box" type="checkbox" id="use-colors" checked />
       <label class="checkbox__label" for="use-colors">Colors</label>
@@ -1714,10 +1715,14 @@
       <input class="checkbox__box" type="checkbox" id="use-effects" />
       <label class="checkbox__label" for="use-effects">Effects</label>
     </div>
-    <label class="label" for="color-style">Selection</label>
+    <label class="label">Selection</label>
     <div class="checkbox">
       <input class="checkbox__box" type="checkbox" id="selected-only" checked />
       <label class="checkbox__label" for="selected-only">selected only</label>
+    </div>
+    <label class="label" for="prefix-input">Prefix</label>
+    <div class="checkbox">
+      <input id="prefix-input" placeholder="e.g. brand-" value="uitk-color-"/>
     </div>
     <button id="generate" class="button button--primary">Generate</button>
     <button id="cancel" class="button button--secondary">Cancel</button>
@@ -2154,6 +2159,7 @@
       selectedBase: document.getElementById("selected-base").value,
       useEffect: document.getElementById("use-effects").checked,
       selectedOnly: document.getElementById("selected-only").checked,
+      prefixString: document.getElementById("prefix-input").value, 
     };
 
     parent.postMessage(

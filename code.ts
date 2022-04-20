@@ -90,6 +90,9 @@ function Generate(options) {
 
         let ColorStyle = `rgba(${rgb.red}, ${rgb.green}, ${rgb.blue}, ${color.opacity})`;
         switch (options.colorStyle.toUpperCase()) {
+          case "RGB":
+            ColorStyle = `rgb(${rgb.red}, ${rgb.green}, ${rgb.blue})`;
+            break;
           case "HEX":
             ColorStyle = RGBToHex(rgb);
             break;
@@ -99,7 +102,7 @@ function Generate(options) {
         }
 
         return {
-          name: FixNaming(paintStyle.name),
+          name: options.prefixString + FixNaming(paintStyle.name),
           ColorStyle: ColorStyle,
         };
       });
@@ -211,10 +214,12 @@ function FixNaming(name: string) {
   const kebabCase = CamelCaseToKebabCase(
     name
       .trim()
-      .replace(new RegExp("/", "gm"), "-")
-      .replace(new RegExp("\\s", "gm"), "-") // Remove any spaces
+      .replace(new RegExp("/", "gm"), "-") // Figma group is separated by "/"
+      .replace(new RegExp("\\s", "gm"), "") // Remove any spaces in each subpart
   ).toLowerCase();
-  return kebabCase.replace("--", "-");
+  const fixedNaming = kebabCase.replace(new RegExp("--", "gm"), "-");
+  console.log({name, kebabCase, fixedNaming })
+  return fixedNaming;
 }
 
 function CamelCaseToKebabCase(name: string) {
