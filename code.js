@@ -54,13 +54,17 @@ function Generate(options) {
         return;
     }
     console.log("All selctions", figma.currentPage.selection);
-    const allSelectedFillStyleIds = new Set(figma.currentPage.selection.filter(s => s.fillStyleId).map(s => s.fillStyleId));
+    const allSelectedFillStyleIds = new Set(figma.currentPage.selection
+        .filter((s) => s.fillStyleId)
+        .map((s) => s.fillStyleId));
     if (options.useColor) {
         const paintStyles = figma.getLocalPaintStyles().filter((paintStyle) => {
             let color = paintStyle.paints[0];
             return color.type === "SOLID";
         });
-        const colors = paintStyles.filter(style => options.selectedOnly ? allSelectedFillStyleIds.has(style.id) : true).map((paintStyle) => {
+        const colors = paintStyles
+            .filter((style) => options.selectedOnly ? allSelectedFillStyleIds.has(style.id) : true)
+            .map((paintStyle) => {
             let color = paintStyle.paints[0];
             const rgb = {
                 red: BeautifyColor(color.color.r),
@@ -163,11 +167,12 @@ function CopyToClipboard() {
 }
 // Figma uses slashes for grouping styles together. This turns that slash into a dash
 function FixNaming(name) {
-    return CamelCaseToKebabCase(name
+    const kebabCase = CamelCaseToKebabCase(name
         .trim()
-        .replace("/", "-")
-        .replace(" ", "-") // Remove any spaces
+        .replace(new RegExp("/", "gm"), "-")
+        .replace(new RegExp("\\s", "gm"), "-") // Remove any spaces
     ).toLowerCase();
+    return kebabCase.replace("--", "-");
 }
 function CamelCaseToKebabCase(name) {
     return `${name.charAt(0)}${name

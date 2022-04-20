@@ -61,9 +61,13 @@ function Generate(options) {
     return;
   }
 
-  console.log("All selctions", figma.currentPage.selection)
+  console.log("All selctions", figma.currentPage.selection);
 
-  const allSelectedFillStyleIds = new Set(figma.currentPage.selection.filter(s => (s as DefaultShapeMixin).fillStyleId).map(s => (s as DefaultShapeMixin).fillStyleId));
+  const allSelectedFillStyleIds = new Set(
+    figma.currentPage.selection
+      .filter((s) => (s as DefaultShapeMixin).fillStyleId)
+      .map((s) => (s as DefaultShapeMixin).fillStyleId)
+  );
 
   if (options.useColor) {
     const paintStyles = figma.getLocalPaintStyles().filter((paintStyle) => {
@@ -71,31 +75,34 @@ function Generate(options) {
       return color.type === "SOLID";
     });
 
+    const colors = paintStyles
+      .filter((style) =>
+        options.selectedOnly ? allSelectedFillStyleIds.has(style.id) : true
+      )
+      .map((paintStyle) => {
+        let color = paintStyle.paints[0] as SolidPaint;
 
-    const colors = paintStyles.filter(style => options.selectedOnly ? allSelectedFillStyleIds.has(style.id) : true).map((paintStyle) => {
-      let color = paintStyle.paints[0] as SolidPaint;
+        const rgb = {
+          red: BeautifyColor(color.color.r),
+          green: BeautifyColor(color.color.g),
+          blue: BeautifyColor(color.color.b),
+        };
 
-      const rgb = {
-        red: BeautifyColor(color.color.r),
-        green: BeautifyColor(color.color.g),
-        blue: BeautifyColor(color.color.b),
-      };
+        let ColorStyle = `rgba(${rgb.red}, ${rgb.green}, ${rgb.blue}, ${color.opacity})`;
+        switch (options.colorStyle.toUpperCase()) {
+          case "HEX":
+            ColorStyle = RGBToHex(rgb);
+            break;
+          case "HSLA":
+            ColorStyle = RGBToHSL(rgb, color.opacity);
+            break;
+        }
 
-      let ColorStyle = `rgba(${rgb.red}, ${rgb.green}, ${rgb.blue}, ${color.opacity})`;
-      switch (options.colorStyle.toUpperCase()) {
-        case "HEX":
-          ColorStyle = RGBToHex(rgb);
-          break;
-        case "HSLA":
-          ColorStyle = RGBToHSL(rgb, color.opacity);
-          break;
-      }
-
-      return {
-        name: FixNaming(paintStyle.name),
-        ColorStyle: ColorStyle,
-      };
-    });
+        return {
+          name: FixNaming(paintStyle.name),
+          ColorStyle: ColorStyle,
+        };
+      });
 
     data.colors = colors;
   }
@@ -188,7 +195,9 @@ function GenerateShadowStyle({ type, color, offset, radius }) {
   )}, ${BeautifyColor(color.b)}, ${alpha})`;
 
   // If the effect is set as INNER_SHADOW, the shadow should be set to inset (this is how Figma shows it in the code-tab)
-  return `${type === "INNER_SHADOW" ? "inset" : ""} ${offset.x}px ${offset.y}px ${radius}px ${rgba}`;
+  return `${type === "INNER_SHADOW" ? "inset" : ""} ${offset.x}px ${
+    offset.y
+  }px ${radius}px ${rgba}`;
 }
 
 // Reason for this to be a backend function is that the UI doesn't have access to the notify function
@@ -199,12 +208,13 @@ function CopyToClipboard() {
 
 // Figma uses slashes for grouping styles together. This turns that slash into a dash
 function FixNaming(name: string) {
-  return CamelCaseToKebabCase(
+  const kebabCase = CamelCaseToKebabCase(
     name
       .trim()
-      .replace("/", "-")
-      .replace(" ", "-") // Remove any spaces
+      .replace(new RegExp("/", "gm"), "-")
+      .replace(new RegExp("\\s", "gm"), "-") // Remove any spaces
   ).toLowerCase();
+  return kebabCase.replace("--", "-");
 }
 
 function CamelCaseToKebabCase(name: string) {
