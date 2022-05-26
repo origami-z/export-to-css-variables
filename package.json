@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/origami-z/export-to-css-variables#readme",
   "devDependencies": {
-    "@figma/plugin-typings": "^1.39.1"
+    "@figma/plugin-typings": "^1.47.0"
   }
 }
